@@ -28,37 +28,64 @@ const gameBoard = (() => {
         
     }
 
-    return {updateBoard, gameStep, checkWin};
+    const resetBoard = () => {
+        board.length = 0;
+        board.length = 9;
+    }
+
+    return {updateBoard, gameStep, checkWin, resetBoard};
 })();
 
-const newPlayer = (sign) => {
+const newPlayer = (sign, name) => {
     const getSign = () => {return sign};
-    return {getSign};
+    const getName = () => {return name};
+    return {getSign, getName};
 };
 
 const displayController = (() => {
     const slots = document.querySelectorAll(".slot");
-    const playerX = newPlayer("X");
-    const playerO = newPlayer("O");
-    let counter = 1;
+    const restart = document.querySelector(".restart");
+    const playerX = newPlayer("X", "Player X");
+    const playerO = newPlayer("O", "Player O");
+    let message = document.querySelector(".message");
+    let counter = 0;
+    let gameDone = false;
 
     slots.forEach(element => element.addEventListener("click", () => {
+        if (gameDone) return;
         if (counter % 2 == 0) {
             counter += gameBoard.gameStep(playerO, element.id);    
             gameBoard.updateBoard();
+            message.textContent = playerX.getName() + "'s turn!";
             if (gameBoard.checkWin(element.id, playerO.getSign())) {
-                console.log("wiener");
+                message.textContent = playerO.getName() + " wins!";
+                gameDone = true;
+            } else if (counter === 9) {
+                message.textContent = "It's a tie!";
+                gameDone = true;
             };
         } else {
             counter += gameBoard.gameStep(playerX, element.id);    
             gameBoard.updateBoard();
+            message.textContent = playerO.getName() + "'s turn!";
             if (gameBoard.checkWin(element.id, playerX.getSign())) {
-                console.log("wiener");
-            };
+                message.textContent = playerX.getName() + " wins!"
+                gameDone = true;
+            } else if (counter === 9) {
+                message.textContent = "It's a tie!";
+                gameDone = true;
+            };;
         };
-        
+    
     }));
     
+    restart.addEventListener("click", () => {
+        gameBoard.resetBoard();
+        gameBoard.updateBoard();
+        counter = 0;
+        message.textContent = playerX.getName() + "'s turn!";
+    });
+
 
 })();
 
