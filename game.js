@@ -90,7 +90,7 @@ const displayController = (() => {
         gameBoard.resetBoard();
         gameBoard.updateBoard();
         counter = 1;
-        gameBoard.updateMessage(playerX.getName() + " 's turn!");
+        gameBoard.updateMessage(playerX.getName() + "'s turn!");
         gameDone = false;
     });
 

@@ -1,5 +1,11 @@
+@font-face {
+    font-family: roboto;
+    src: url('../fonts/Roboto-Regular.ttf');
+}
+
 :root {
     font-size: 10px;
+    font-family: roboto, sans-serif; 
     height: 100%;
     box-sizing: border-box;
 }
@@ -35,6 +41,19 @@ header {
     grid-column: 2 / 3;
     height: 70%;
     align-self: center;
+    background-color: rgb(41, 189, 169);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.submit:hover {
+    background-color: rgb(28, 141, 126);
+    cursor: pointer;
+}
+
+.submit:active {
+    transform: scale(0.98);
 }
 
 .message {
@@ -77,4 +96,9 @@ header {
 
 .restart:hover {
     background-color: rgb(129, 22, 22);
+    cursor: pointer;
+}
+
+.restart:active {
+    transform:scale(0.98);
 }
